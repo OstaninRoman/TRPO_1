@@ -1,45 +1,37 @@
-#ifndef MAINWINDOW_H //директива для предотвращения многократного включения файла
+#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtWidgets> //библиотека для всех обьектов пользовательского интерфейса
-
-class Win:public QWidget // класс окна
+#include <QtGui>
+class Counter:public QLineEdit
 {
-    Q_OBJECT // макрос Qt, обеспечивающий корректное создание сигналов и слотов
-
-protected:
-    //обьявление указателей на различные виджеты, которые будут использоваться в пользовательском интерфейсе окна
-    QFrame *frame; // рамка
-    QLabel *inputLabel; // метка ввода
-    QLineEdit *inputEdit; // строчный редактор ввода
-    QLabel *outputLabel; // метка вывода
-    QLineEdit *outputEdit; // строчный редактор вывода
-    QPushButton *nextButton; // кнопка Следующее
-    QPushButton *exitButton; // кнопка Выход
-
+    Q_OBJECT
 public:
-    Win(QWidget *parent = 0); // конструктор
-
+    Counter(const QString & contents, QWidget *parent=0):
+        QLineEdit(contents,parent){}
+signals:
+    void tick_signal();
 public slots:
-    //методы класса
-    void begin(); // метод начальной настройки интерфейса
-    void calc(); // метод реализации вычислений
+    void add_one()
+    {
+        QString str=text();
+        int r=str.toInt();
+        if (r!=0 && r%5 ==0) emit tick_signal();
+        r++;
+        str.setNum(r);
+        setText(str);
+    }
 };
 
-class StrValidator:public QValidator // класс компонента проверки ввода
+class Win: public QWidget
 {
+    Q_OBJECT
+protected:
+    QTextCodec *codec;
+    QLabel *label1,*label2;
+    Counter *edit1,*edit2;
+    QPushButton *calcbutton;
+    QPushButton *exitbutton;
 public:
-    StrValidator(QObject *parent):QValidator(parent){} //конструктор наследника с вызовом конструктора базового класса
-    State validate(QString &str,int &pos)const override //метод проверки вводимой строки
-    {
-        auto msg = QMessageBox(
-                    QMessageBox::Information,
-                    "Предупреждение",
-                    "Вызван метод validate",
-                    QMessageBox::Ok
-                );
-                msg.exec();
-        return Acceptable; // метод всегда принимает вводимую строку
-    }
+    Win(QWidget *parent = 0);
 };
 #endif
