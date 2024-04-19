@@ -2,8 +2,8 @@
 
 Win::Win(QWidget *parent):QWidget(parent)
 {
-    setWindowTitle("Возведение в квадрат");
-    frame = new QFrame(this); //устанавливаем заголовок окна
+    setWindowTitle("Возведение в квадрат"); //устанавливаем заголовок окна
+    frame = new QFrame(this); //создаем обьект QFrame
     frame->setFrameShadow(QFrame::Raised); //устанавливаем стиль тени для рамки обьекта qframe
     frame->setFrameShape(QFrame::Panel); //устанавливаем стиль формы
     inputLabel = new QLabel("Введите число:", this); //создаем обьект qlable с текстом
