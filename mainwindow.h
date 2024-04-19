@@ -12,7 +12,7 @@ public:
         setReadOnly(true); //не нужно редактирование поля
     }
 signals:
-    void tick_signal();
+    void tick_signal(); //обьявляем новый сигнал
 public slots:
     void add_one()
     {
