@@ -2,13 +2,12 @@
 
 Window::Window()
 {
-    codec = QTextCodec::codecForName("Windows-1251");
-    this->setWindowTitle(codec->toUnicode("Обработка событий"));
-    area = new Area( this );
-    btn = new QPushButton(codec->toUnicode("Завершить"),this );
-    QVBoxLayout *layout = new QVBoxLayout(this);
+    this->setWindowTitle("Обработка событий");
+    area = new Area(this); //создаем холст
+    btn = new QPushButton("Завершить", this);
+    QVBoxLayout *layout = new QVBoxLayout(this); //вертикальная компановка
     layout->addWidget(area);
     layout->addWidget(btn);
-    connect(btn, SIGNAL(clicked(bool)),this,SLOT(close()));
+    connect(btn, &QPushButton::clicked, this, &QWidget::close);
 };
 

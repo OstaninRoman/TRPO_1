@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include <QtGui>
+
 #include "area.h"
 
 class Window : public QWidget
